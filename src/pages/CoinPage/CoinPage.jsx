@@ -3,25 +3,25 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ReactHtmlParser from "react-html-parser";
-import TickerInfo from "../components/TickerInfo";
-import { SingleTicker } from "../config/api";
-import { numberWithCommas } from "../components/TickersTable";
-import { StockState } from "../StockContext";
+import CoinInfo from "../components/CoinInfo";
+import { SingleCoin } from "../config/api";
+import { numberWithCommas } from "../components/CoinsTable";
+import { CryptoState } from "../CryptoContext";
 
-const TickerPage = () => {
+const CoinPage = () => {
   const { id } = useParams();
-  const [ticker, setTicker] = useState();
+  const [coin, setCoin] = useState();
 
-  const { currency, symbol } = StockState();
+  const { currency, symbol } = CryptoState();
 
-  const fetchTicker = async () => {
-    const { data } = await axios.get(SingleTicker(id));
+  const fetchCoin = async () => {
+    const { data } = await axios.get(SingleCoin(id));
 
-    setTicker(data);
+    setCoin(data);
   };
 
   useEffect(() => {
-    fetchTicker();
+    fetchCoin();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -78,22 +78,22 @@ const TickerPage = () => {
 
   const classes = useStyles();
 
-  if (!ticker) return <LinearProgress style={{ backgroundColor: "gold" }} />;
+  if (!coin) return <LinearProgress style={{ backgroundColor: "gold" }} />;
 
   return (
     <div className={classes.container}>
       <div className={classes.sidebar}>
         <img
-          src={ticker?.image.large}
-          alt={ticker?.name}
+          src={coin?.image.large}
+          alt={coin?.name}
           height="200"
           style={{ marginBottom: 20 }}
         />
         <Typography variant="h3" className={classes.heading}>
-          {ticker?.name}
+          {coin?.name}
         </Typography>
         <Typography variant="subtitle1" className={classes.description}>
-          {ReactHtmlParser(ticker?.description.en.split(". ")[0])}.
+          {ReactHtmlParser(coin?.description.en.split(". ")[0])}.
         </Typography>
         <div className={classes.marketData}>
           <span style={{ display: "flex" }}>
@@ -107,7 +107,7 @@ const TickerPage = () => {
                 fontFamily: "Montserrat",
               }}
             >
-              {numberWithCommas(ticker?.market_cap_rank)}
+              {numberWithCommas(coin?.market_cap_rank)}
             </Typography>
           </span>
 
@@ -124,7 +124,7 @@ const TickerPage = () => {
             >
               {symbol}{" "}
               {numberWithCommas(
-                ticker?.market_data.current_price[currency.toLowerCase()]
+                coin?.market_data.current_price[currency.toLowerCase()]
               )}
             </Typography>
           </span>
@@ -141,7 +141,7 @@ const TickerPage = () => {
             >
               {symbol}{" "}
               {numberWithCommas(
-                ticker?.market_data.market_cap[currency.toLowerCase()]
+                coin?.market_data.market_cap[currency.toLowerCase()]
                   .toString()
                   .slice(0, -6)
               )}
@@ -150,7 +150,7 @@ const TickerPage = () => {
           </span>
         </div>
       </div>
-      <TickerInfo ticker={ticker} />
+      <CoinInfo coin={coin} />
     </div>
   );
 };

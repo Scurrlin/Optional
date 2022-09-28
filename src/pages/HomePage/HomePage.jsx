@@ -1,12 +1,12 @@
 import React from "react";
 import Banner from "../components/Banner/Banner";
-import TickersTable from "../components/TickersTable";
+import CoinsTable from "../components/CoinsTable";
 
 const Homepage = () => {
   return (
     <>
       <Banner />
-      <TickersTable />
+      <CoinsTable />
     </>
   );
 };
