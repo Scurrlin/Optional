@@ -1,5 +1,11 @@
 const mongoose = require('mongoose');
 
+const Schema = mongoose.Schema;
+
+const cryptoSchema = new Schema(
+    {
+        user: {type: Schema.Types.ObjectId, ref: 'User'},
+
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 const Crypto = createContext();
@@ -27,6 +33,30 @@ const CryptoContext = ({ children }) => {
     </Crypto.Provider>
   );
 };
+
+const mongoose = require('mongoose');
+
+const chartDays = new mongoose.Schema(
+
+    {
+      label: "24 Hours",
+      value: 1,
+    },
+    {
+      label: "30 Days",
+      value: 30,
+    },
+    {
+      label: "3 Months",
+      value: 90,
+    },
+    {
+      label: "1 Year",
+      value: 365,
+    },
+);
+
+module.exports = mongoose.model('chartDays', chartDaysSchema);
 
 export default CryptoContext;
 
