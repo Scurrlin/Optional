@@ -1,42 +1,41 @@
-const Stock = require('../models/crypto');
-const S3 = require('aws-sdk/clients/s3');
-const s3 = new S3();
-const { v4: uuidv4 } = require('uuid');
-const { post } = require('../routes/api/users');
-const BUCKET_NAME = process.env.AWS_BUCKET_NAME;
+const apiUrlPrefix = "https://api.coingecko.com/api/v3"
+const apiKey = process.env.APIKEY
 
-async function create(req, res) {
-  console.log(req.body, '<--req.body: create()/ctrl/stock');
-  const key = `optional/stocks/${uuidv4()}-${req.file.originalname}`;
-  const params = { Bucket: BUCKET_NAME, Key: key, Body: req.file.buffer };
-  s3.upload(params, async function (err, data) {
-    console.log(err, '<---err from AWS call in create()!');
-    console.log(req.body, '<---req.body');
-    if (err)
-      return res.status(400).json({ err: 'Check Terminal for AWS error' });
-    try {
-      const event = await Event.create({
-        name: req.body.title,
-        start: req.body.start,
-        end: req.body.end,
-        poster: data.Location,
-        eventUrl: req.body.eventUrl,
-        description: req.body.description,
-      });
-      res.status(201).json({ data: event });
-    } catch (err) {
-      res.status(400).json({ err });
+//===================================================================
+
+const fetchTrendingCoins = async (req, res) => {
+  const url = `${apiUrlPrefix}/trending/coin/day?api_key=${apiKey}`;
+  try {
+    const response = await fetch(url);
+    if (response.ok) {
+      const trendingCoinData = await response.json();
+      res.status(200).json(trendingCoinData);
     }
-  });
-}
+  } catch (err) {
+    console.log(err);
+  }
+};
 
-async function index(req, res) {
-  const stock = await Event.find({});
-  console.log(event, '<--event: index()/ctrl/event');
-  res.send(event);
-}
+//====================================================================================
+
+const cryptoSearch = async (req, res) => {
+  const search = req.query.query
+  const url = `https://api.coingecko.com/api/v3/search/coin?api_key=${apiKey}&query=${search}`;
+  try {
+    const response = await fetch(url);
+    if (response.ok) {
+      const movieQuery = await response.json();
+      res.status(200).json(movieQuery)
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+//==============================================================================================
+
 
 module.exports = {
-  index,
-  create,
+  fetchTrendingCoins,
+  cryptoSearch,
 };

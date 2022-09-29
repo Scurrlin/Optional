@@ -1,97 +1,142 @@
-const User = require('../models/user');
-const Watchlist = require('../models/watchlist');
-const jwt = require('jsonwebtoken');
-const S3 = require("aws-sdk/clients/s3");
-const s3 = new S3(); // initate the S3 constructor which can talk to aws/s3 our bucket!
-// import uuid to help generate random names
-const { v4: uuidv4 } = require("uuid");
-// since we are sharing code, when you pull you don't want to have to edit the
-// the bucket name, thats why we're using an environment variable
-const BUCKET_NAME = process.env.AWS_BUCKET_NAME;
+const User = require("../models/user");
+const Watchlist = require("../models/watchlist");
+const jwt = require("jsonwebtoken");
+
 const SECRET = process.env.SECRET;
 
 module.exports = {
   signup,
-  login
+  login,
+  profile,
+  addCryptoToWatchlist,
 };
 
+//=============================================================
+
 async function signup(req, res) {
-  console.log(req.body, " req.body in signup", req.file);
-
-  // Create the key that we will store in the s3 bucket name
-  // appname/ <- will upload everything to the bucket so it appears
-  // like its an a folder (really its just nested keys on the bucket)
-  const key = `cryptowatch/${uuidv4()}-${req.file.originalname}`;
-  const params = { Bucket: BUCKET_NAME, Key: key, Body: req.file.buffer };
-
-  s3.upload(params, async function (err, data) {
-    // this function is called when we get a response from AWS
-    // inside of the callback is a response from AWS!
-    console.log("========================");
-    console.log(err, " <--- err from aws");
-    console.log("========================");
-    if (err)
-      return res.status(400).json({
-        err: "Error from aws, check the server terminal!, you bucket name or keys are probley wrong",
-      });
-
-    // data.Location <- should be the say as the key but with the aws domain
-    // its where our photo is hosted on our s3 bucket
-    const user = new User({ ...req.body });
-    try {
-      await user.save();
-      const token = createJWT(user);
-      res.json({ token }); // shorthand for the below
-      // res.json({ token: token })
-    } catch (err) {
-      if (err.name === "MongoServerError" && err.code === 11000) {
-        console.log(err.message, "err.message");
-        res
-          .status(423)
-          .json({
-            errorMessage: err,
-            err: `${identifyKeyInMongooseValidationError(
-              err.message
-            )} Already taken!`,
-          });
-      } else {
-        res.status(500).json({
-          err: err,
-          message: "Internal Server Error, Please try again",
-        });
-      }
-    }
-  });
-}
-
-async function login(req, res) {
+  console.log("hitting signup router");
+  console.log(req.body, "<- req.body");
+  const user = new User(req.body);
   try {
-    const user = await User.findOne({email: req.body.email});
-    console.log(user, ' this user in login')
-    if (!user) return res.status(401).json({err: 'bad credentials'});
-    // had to update the password from req.body.pw, to req.body password
-    user.comparePassword(req.body.password, (err, isMatch) => {
-        
-      if (isMatch) {
-        const token = createJWT(user);
-        res.json({token});
-      } else {
-        return res.status(401).json({err: 'bad credentials'});
-      }
-    });
+    await user.save();
+    const token = createJWT(user);
+    res.json({ token }); // shorthand for the below
+    // res.json({ token: token })
   } catch (err) {
-    return res.status(401).json({err: 'error message'});
+    // THIS IS AN EXAMPLE OF HOW TO HANDLE VALIDATION ERRORS FROM MONGOOSE
+    if (err.name === "MongoServerError" && err.code === 11000) {
+      console.log(err.message, "err.message");
+      res.status(423).json({
+        errorMessage: err,
+        err: `${identifyKeyInMongooseValidationError(
+          err.message
+        )} Already taken!`,
+      });
+    } else {
+      res.status(500).json({
+        err: err,
+        message: "Internal Server Error, Please try again",
+      });
+    }
   }
 }
 
+//=============================================================
+
+async function login(req, res) {
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    console.log(user, " this user in login");
+    if (!user) return res.status(401).json({ err: "bad credentials" });
+    // had to update the password from req.body.pw, to req.body password
+    user.comparePassword(req.body.password, (err, isMatch) => {
+      if (isMatch) {
+        const token = createJWT(user);
+        res.json({ token });
+      } else {
+        return res.status(401).json({ err: "bad credentials" });
+      }
+    });
+  } catch (err) {
+    return res.status(401).json({ err: "error message" });
+  }
+}
+
+//=============================================================
+
+async function profile(req, res) {
+  try {
+    // const user = await User.findOne({ email: req.user.email });
+    const user = await User.findOne({ username: req.params.username })
+    if (!user) return res.status(404).json({ error: "User not found" });
+    const watchlistCryptos = await Watchlist.find({ user: user._id })
+      .populate("user")
+      .exec();
+    res.status(200).json({
+      data: {
+        user: user,
+        watchlistCryptos: watchlistCryptos,
+      },
+    });
+  } catch (err) {
+    console.log(err.message, " <- profile controller");
+    res.status(400).json({ error: "Something went wrong" });
+  }
+}
+
+//=================================================================================================
+
+async function addCryptoToWatchlist(req, res) {
+  try {
+    const cryptoInfo = {
+      cryptoId: req.query.id,
+      cryptoTitle: req.query.title,
+      cryptoImg: req.query.img,
+    };
+    console.log("cryptoInfo", cryptoInfo);
+    const user = await User.findOne({ email: req.user.email });
+    if (!user) return res.status(404).json({ error: "User not found" });
+
+    let watchlistCryptos = await Watchlist.find({ user: user._id });
+
+    //==== IF CRYPTO ALREADY ADDED TO WATCHLIST
+    if (!!watchlistCryptos.find((w) => w.cryptoId === cryptoInfo.cryptoId)) {
+      res.status(200).json({
+        data: {
+          user: user,
+          watchlistCryptos: watchlistCryptos,
+        },
+      });
+      return;
+    }
+
+    let watch = { user: user, ...cryptoInfo };
+    console.log("watch", watch);
+    watchlistCrypto = new Cryptolist(watch);
+    await watchlistCrypto.save();
+    watchlistCryptos = await Watchlist.find({ user: user._id });
+
+    res.status(200).json({
+      data: {
+        user: user,
+        watchlistCryptos: watchlistCryptos,
+      },
+    });
+  } catch (err) {
+    console.log(err.message, " <- profile controller");
+    res.status(400).json({ error: "Something went wrong" });
+  }
+}
+
+//=============================================================
 
 /*----- Helper Functions -----*/
 
 function createJWT(user) {
   return jwt.sign(
-    {user}, // data payload
+    { user }, // data payload
     SECRET,
-    {expiresIn: '24h'}
+    { expiresIn: "24h" }
   );
 }
 

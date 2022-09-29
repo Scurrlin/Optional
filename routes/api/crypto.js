@@ -1,18 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const monstersCtrl = require('../../controllers/monsters');
+const crytposCtrl = require('../../controllers/cryptos');
 
-// /*---------- Public Routes ----------*/
-router.post('/', monstersCtrl.create);
-// GET /api/monsters
-router.get('/', monstersCtrl.index);
-// UPDATE /api/monsters
-router.put('/:id', monstersCtrl.update);
-// DELTE /api/monsters
-router.delete('/:id', monstersCtrl.delete);
+/*---------- Public Routes ----------*/
+router.get('/trending', moviesCtrl.fetchTrendingCoins);
+router.get('/search', crytposCtrl.cryptoSearch);
+
 /*---------- Protected Routes ----------*/
-
-
-
 
 module.exports = router;

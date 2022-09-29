@@ -1,24 +1,3 @@
-// import React, { useState } from "react";
-// import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
-
-// import userService from "../../utils/userService";
-// import { useNavigate } from "react-router-dom";
-
-// export default function SignUpPage(props) {
-//   return (
-//     <>
-//       <h1>Signup PAGE</h1>
-//       <ul>
-//         <li>Read the Login Model, You can change it to fit your needs</li>
-//         <li>
-//           Make sure you read the Login Controller, to know how it is setup to
-//           find the user!
-//         </li>
-//       </ul>
-//     </>
-//   );
-// }
-
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
@@ -43,8 +22,13 @@ export default function SignUpPage(props) {
     email: '',
     password: '',
     passwordConf: '',
+    bio: '',
   });
 
+  const [selectedFile, setSelectedFile] = useState('');
+
+  // initialized the react router hook, which allows you to programatically
+  // change routes, aka after our signup call in the handleSubmit
   const navigate = useNavigate();
 
   function handleChange(e) {
@@ -68,6 +52,7 @@ export default function SignUpPage(props) {
 
     const formData = new FormData(); //< - this constructor from the browser allows us to create data
     // now we can set key value pairs on the formData
+    formData.append('photo', selectedFile);
     // Line by line tactic
     // formData.append('username', state.username);
     // formData.append('email', state.email);
@@ -157,6 +142,7 @@ export default function SignUpPage(props) {
               onChange={handleChange}
               required
             />
+            </Form.Field>
             <Button type="submit" className="btn">
               Signup
             </Button>
