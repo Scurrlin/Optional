@@ -62,6 +62,29 @@ async function login(req, res) {
   }
 }
 
+
+//=============================================================
+
+async function profile(req, res) {
+  try {
+    // const user = await User.findOne({ email: req.user.email });
+    const user = await User.findOne({ username: req.params.username })
+    if (!user) return res.status(404).json({ error: "User not found" });
+    const watchlistMovies = await Watchlist.find({ user: user._id })
+      .populate("user")
+      .exec();
+    res.status(200).json({
+      data: {
+        user: user,
+        watchlistMovies: watchlistMovies,
+      },
+    });
+  } catch (err) {
+    console.log(err.message, " <- profile controller");
+    res.status(400).json({ error: "Something went wrong" });
+  }
+}
+
 //=================================================================================================
 
 async function addCryptoToWatchlist(req, res) {
