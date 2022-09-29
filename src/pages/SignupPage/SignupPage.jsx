@@ -23,7 +23,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import userService from '../../utils/userService';
-import { Button, Form, Grid, Header, Icon, Segment } from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Icon, Segment } from "@material-ui/core";
 
 // Utility functions that don't pertain to the component can
 // be defined outside it
