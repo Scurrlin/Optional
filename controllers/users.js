@@ -1,7 +1,6 @@
 const User = require("../models/user");
 const Watchlist = require("../models/watchlist");
 const jwt = require("jsonwebtoken");
-
 const SECRET = process.env.SECRET;
 
 module.exports = {
@@ -9,6 +8,7 @@ module.exports = {
   login,
   profile,
   addCryptoToWatchlist,
+  removeCryptoFromWatchlist
 };
 
 //=============================================================
@@ -62,21 +62,20 @@ async function login(req, res) {
   }
 }
 
-
 //=============================================================
 
 async function profile(req, res) {
   try {
     // const user = await User.findOne({ email: req.user.email });
-    const user = await User.findOne({ username: req.params.username })
+    const user = await User.findOne({ username: req.params.username });
     if (!user) return res.status(404).json({ error: "User not found" });
-    const watchlistMovies = await Watchlist.find({ user: user._id })
+    const watchlistCryptos = await Watchlist.find({ user: user._id })
       .populate("user")
       .exec();
     res.status(200).json({
       data: {
         user: user,
-        watchlistMovies: watchlistMovies,
+        watchlistCryptos: watchlistCryptos,
       },
     });
   } catch (err) {
@@ -100,7 +99,6 @@ async function addCryptoToWatchlist(req, res) {
 
     let watchlistCryptos = await Watchlist.find({ user: user._id });
 
-    //==== IF CRYPTO ALREADY ADDED TO WATCHLIST
     if (!!watchlistCryptos.find((w) => w.cryptoId === cryptoInfo.cryptoId)) {
       res.status(200).json({
         data: {
@@ -112,8 +110,7 @@ async function addCryptoToWatchlist(req, res) {
     }
 
     let watch = { user: user, ...cryptoInfo };
-    console.log("watch", watch);
-    watchlistCrypto = new Cryptolist(watch);
+    watchlistCrypto = new Watchlist(watch);
     await watchlistCrypto.save();
     watchlistCryptos = await Watchlist.find({ user: user._id });
 
@@ -126,6 +123,22 @@ async function addCryptoToWatchlist(req, res) {
   } catch (err) {
     console.log(err.message, " <- profile controller");
     res.status(400).json({ error: "Something went wrong" });
+  }
+}
+
+//============================================================
+
+async function removeCryptoFromWatchlist(req, res) {
+  try {
+    const watchList = await Watchlist.findOne({
+      cryptoId: req.query.id,
+      username: req.user.user_.id,
+    });
+    post.crypto.remove(req.params.id);
+    await post.save();
+    res.json({ data: "coin removed" });
+  } catch (err) {
+    res.status(400).json({ error: err });
   }
 }
 

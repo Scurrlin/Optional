@@ -1,158 +1,143 @@
-import { LinearProgress, makeStyles, Typography } from "@material-ui/core";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import Movie from "../../components/Movie/Movie";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Navbar from "../../components/Navbar/Navbar";
+import UserService from "../../utils/userService";
+import MovieService from "../../utils/movieService";
+import "./MovieDetail.css";
 import { useParams } from "react-router-dom";
-import ReactHtmlParser from "react-html-parser";
-import CoinInfo from "../components/CoinInfo";
-import { SingleCoin } from "../config/api";
-import { numberWithCommas } from "../components/CoinsTable";
-import { CryptoState } from "../CryptoContext";
+import Button from 'react-bootstrap/Button';
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 
-const CoinPage = () => {
+const MovieDetails = ({ user, handleLogout }) => {
+  const [movie, setMovie] = useState("");
+  const [movieReviews, setMovieReviews] = useState()
+  const [userProfile, setUserProfile] = useState("");
+  const [loading, setLoading] = useState(true)
+  const [alreadyWatched, setAlreadyWatched] = useState(false)
+
+  const TMDBImgUrl = "https://image.tmdb.org/t/p/w1280";
+
   const { id } = useParams();
-  const [coin, setCoin] = useState();
 
-  const { currency, symbol } = CryptoState();
-
-  const fetchCoin = async () => {
-    const { data } = await axios.get(SingleCoin(id));
-
-    setCoin(data);
-  };
+  //==============================================================================
 
   useEffect(() => {
-    fetchCoin();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const fetchMovieDetails = async () => {
+      const movieDetail = await MovieService.getMovieDetails(id);
+      setLoading(false)
+      console.log(movieDetail, "<---MOVIE DETAILS");
+      setMovie(movieDetail);
+    };
+    fetchMovieDetails();
+    const getUserProfile = async () => {
+      const profile = await UserService.getProfile();
+      console.log(profile, "<---profile");
+      if (profile.data.watchlistMovies.find(((w => w.movieId === id)))){
+        setAlreadyWatched(true);
+      }
+      setLoading(false)
+      setUserProfile(profile);
+    };    
+    getUserProfile();
   }, []);
 
-  const useStyles = makeStyles((theme) => ({
-    container: {
-      display: "flex",
-      [theme.breakpoints.down("md")]: {
-        flexDirection: "column",
-        alignItems: "center",
-      },
-    },
-    sidebar: {
-      width: "30%",
-      [theme.breakpoints.down("md")]: {
-        width: "100%",
-      },
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      marginTop: 25,
-      borderRight: "2px solid grey",
-    },
-    heading: {
-      fontWeight: "bold",
-      marginBottom: 20,
-      fontFamily: "Montserrat",
-    },
-    description: {
-      width: "100%",
-      fontFamily: "Montserrat",
-      padding: 25,
-      paddingBottom: 15,
-      paddingTop: 0,
-      textAlign: "justify",
-    },
-    marketData: {
-      alignSelf: "start",
-      padding: 25,
-      paddingTop: 10,
-      width: "100%",
-      [theme.breakpoints.down("md")]: {
-        display: "flex",
-        justifyContent: "space-around",
-      },
-      [theme.breakpoints.down("sm")]: {
-        flexDirection: "column",
-        alignItems: "center",
-      },
-      [theme.breakpoints.down("xs")]: {
-        alignItems: "start",
-      },
-    },
-  }));
+  //================================================================================
+    //======== ADD TO WATCHLIST =======================
 
-  const classes = useStyles();
+    const handleAddToWatchlist =  (movie) => {
+      return (e) => {
+        e.preventDefault();
+        addToWatchlist(movie)
+        setAlreadyWatched(true);
+       };
+    }
 
-  if (!coin) return <LinearProgress style={{ backgroundColor: "gold" }} />;
+    async function addToWatchlist(movie) {
+      const movieInfo = {
+        movieId: movie.id,
+        movieTitle: movie.title,
+        movieImg : `${TMDBImgUrl}${movie.poster_path}`
+      }
+      try {
+        const response = await MovieService.addToWatchlist(movieInfo);
+        console.log(response, "from add to watchlist movieservice");
+      } catch (err) {
+        console.log(err, " err from server");
+      }
+    }
+
+    
+
+
+  // useEffect(() => {
+  //   const getMovieReviews = async () => {
+  //     const reviews = await MovieService.getMovieReviews();
+  //     // console.log(movies, "<-- from fetch trending movies");
+  //     setLoading(() => false);
+  //     setMovieReviews(reviews.results);
+  //     console.log(reviews, '<---reviews')
+  //   };
+  //   getMovieReviews();
+  // }, []);
+
+  //=================================================================================
+
+
+  if (loading) {
+    return (
+      <>
+        <Navbar handleLogout={handleLogout} user={user} />
+        <LoadingSpinner />
+      </>
+    );
+  }
 
   return (
-    <div className={classes.container}>
-      <div className={classes.sidebar}>
-        <img
-          src={coin?.image.large}
-          alt={coin?.name}
-          height="200"
-          style={{ marginBottom: 20 }}
-        />
-        <Typography variant="h3" className={classes.heading}>
-          {coin?.name}
-        </Typography>
-        <Typography variant="subtitle1" className={classes.description}>
-          {ReactHtmlParser(coin?.description.en.split(". ")[0])}.
-        </Typography>
-        <div className={classes.marketData}>
-          <span style={{ display: "flex" }}>
-            <Typography variant="h5" className={classes.heading}>
-              Rank:
-            </Typography>
-            &nbsp; &nbsp;
-            <Typography
-              variant="h5"
-              style={{
-                fontFamily: "Montserrat",
-              }}
-            >
-              {numberWithCommas(coin?.market_cap_rank)}
-            </Typography>
-          </span>
+    <>
+      <Navbar handleLogout={handleLogout} user={user}/>
+      <Container>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <Row>
+          <Col>
+            <img className="detailsImg" src={TMDBImgUrl + movie.poster_path} alt={movie.title}></img>
+          </Col>
+          <Col>
+            <ul>
+              <li className="movieInfo">
+                <span className="movieInfoTitles">TITLE: </span>
+                {movie.title}
+              </li>
+              <br/>
+              <li className="movieInfo">
+                <span className="movieInfoTitles">OVERVIEW: </span>
+                {movie.overview}
+              </li>
+              <br/>
+              <li className="movieInfo">
+                <span className="movieInfoTitles">RELEASE DATE: </span>
+                {movie.release_date}
+              </li>
+              <br/>
+              { alreadyWatched &&
+              <Button disabled={alreadyWatched} onClick={handleAddToWatchlist(movie)} variant="success">Added to your watch list!</Button>
+              }
+              { !alreadyWatched &&
+              <Button disabled={alreadyWatched} onClick={handleAddToWatchlist(movie)} variant="success">Add to your watch list</Button>
+              }
 
-          <span style={{ display: "flex" }}>
-            <Typography variant="h5" className={classes.heading}>
-              Current Price:
-            </Typography>
-            &nbsp; &nbsp;
-            <Typography
-              variant="h5"
-              style={{
-                fontFamily: "Montserrat",
-              }}
-            >
-              {symbol}{" "}
-              {numberWithCommas(
-                coin?.market_data.current_price[currency.toLowerCase()]
-              )}
-            </Typography>
-          </span>
-          <span style={{ display: "flex" }}>
-            <Typography variant="h5" className={classes.heading}>
-              Market Cap:
-            </Typography>
-            &nbsp; &nbsp;
-            <Typography
-              variant="h5"
-              style={{
-                fontFamily: "Montserrat",
-              }}
-            >
-              {symbol}{" "}
-              {numberWithCommas(
-                coin?.market_data.market_cap[currency.toLowerCase()]
-                  .toString()
-                  .slice(0, -6)
-              )}
-              M
-            </Typography>
-          </span>
-        </div>
-      </div>
-      <CoinInfo coin={coin} />
-    </div>
+            </ul>
+            
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
 };
 
-export default CoinPage;
+export default MovieDetails;

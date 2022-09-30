@@ -3,13 +3,13 @@ const apiKey = process.env.APIKEY
 
 //===================================================================
 
-const fetchTrendingCoins = async (req, res) => {
+const fetchTrendingCryptos = async (req, res) => {
   const url = `${apiUrlPrefix}/trending/coin/day?api_key=${apiKey}`;
   try {
     const response = await fetch(url);
     if (response.ok) {
-      const trendingCoinData = await response.json();
-      res.status(200).json(trendingCoinData);
+      const trendingCryptoData = await response.json();
+      res.status(200).json(trendingCryptoData);
     }
   } catch (err) {
     console.log(err);
@@ -24,8 +24,8 @@ const cryptoSearch = async (req, res) => {
   try {
     const response = await fetch(url);
     if (response.ok) {
-      const movieQuery = await response.json();
-      res.status(200).json(movieQuery)
+      const cryptoQuery = await response.json();
+      res.status(200).json(cryptoQuery)
     }
   } catch (err) {
     console.log(err);
@@ -34,8 +34,40 @@ const cryptoSearch = async (req, res) => {
 
 //==============================================================================================
 
+const createSession = async (req, res) => {
+  const url = `${apiUrlPrefix}/authentication/guest_session/new?api_key=${apiKey}`;
+  try {
+    const response = await fetch(url);
+    if (response.ok) {
+      const json = await response.json();
+      res.status(200).json(json)
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+//===================================================================================
+
+const getCryptoDetails = async (req, res) => {
+  let cryptoId = req.query.id;
+  const url = `${apiUrlPrefix}/crypto/${cryptoId}?api_key=${apiKey}`;
+  try {
+    const response = await fetch(url);
+    if (response.ok) {
+      const detailsData = await response.json();
+      console.log(detailsData);
+      // error handler goes here
+      res.status(200).json(detailsData);
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 module.exports = {
-  fetchTrendingCoins,
+  fetchTrendingCryptos,
   cryptoSearch,
+  createSession,
+  getCryptoDetails
 };
