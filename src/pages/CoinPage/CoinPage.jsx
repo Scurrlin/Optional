@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from "react";
-import Movie from "../../components/Movie/Movie";
+import Crypto from "../../components/Crypto/Crypto";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Navbar from "../../components/Navbar/Navbar";
 import UserService from "../../utils/userService";
-import MovieService from "../../utils/movieService";
-import "./MovieDetail.css";
+import CryptoService from "../../utils/cryptoService";
+import "./CryptoDetail.css";
 import { useParams } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 
-const MovieDetails = ({ user, handleLogout }) => {
-  const [movie, setMovie] = useState("");
-  const [movieReviews, setMovieReviews] = useState()
+const CryptoDetails = ({ user, handleLogout }) => {
+  const [Crypto, setCrypto] = useState("");
+  const [cryptoReviews, setCryptoReviews] = useState()
   const [userProfile, setUserProfile] = useState("");
   const [loading, setLoading] = useState(true)
-  const [alreadyWatched, setAlreadyWatched] = useState(false)
+  const [notInterested, setNotInterested] = useState(false)
 
   const TMDBImgUrl = "https://image.tmdb.org/t/p/w1280";
 
@@ -25,18 +25,18 @@ const MovieDetails = ({ user, handleLogout }) => {
   //==============================================================================
 
   useEffect(() => {
-    const fetchMovieDetails = async () => {
-      const movieDetail = await MovieService.getMovieDetails(id);
+    const fetchCryptoDetails = async () => {
+      const cryptoDetail = await CryptoService.getCryptoDetails(id);
       setLoading(false)
-      console.log(movieDetail, "<---MOVIE DETAILS");
-      setMovie(movieDetail);
+      console.log(cryptoDetail, "<---CRYPTO DETAILS");
+      setCrypto(cryptoDetail);
     };
-    fetchMovieDetails();
+    fetchCryptoDetails();
     const getUserProfile = async () => {
       const profile = await UserService.getProfile();
       console.log(profile, "<---profile");
-      if (profile.data.watchlistMovies.find(((w => w.movieId === id)))){
-        setAlreadyWatched(true);
+      if (profile.data.watchlistCryptos.find(((w => w.cryptoId === id)))){
+        setNotInterested(true);
       }
       setLoading(false)
       setUserProfile(profile);
@@ -47,41 +47,27 @@ const MovieDetails = ({ user, handleLogout }) => {
   //================================================================================
     //======== ADD TO WATCHLIST =======================
 
-    const handleAddToWatchlist =  (movie) => {
+    const handleAddToWatchlist =  (crypto) => {
       return (e) => {
         e.preventDefault();
-        addToWatchlist(movie)
-        setAlreadyWatched(true);
+        addToWatchlist(crypto)
+        setNotInterested(true);
        };
     }
 
-    async function addToWatchlist(movie) {
-      const movieInfo = {
-        movieId: movie.id,
-        movieTitle: movie.title,
-        movieImg : `${TMDBImgUrl}${movie.poster_path}`
+    async function addToWatchlist(crypto) {
+      const cryptoInfo = {
+        cryptoId: crypto.id,
+        cryptoName: crypto.name,
+        cryptoImg: `${TMDBImgUrl}${crypto.poster_path}`
       }
       try {
-        const response = await MovieService.addToWatchlist(movieInfo);
-        console.log(response, "from add to watchlist movieservice");
+        const response = await CryptoService.addToWatchlist(cryptoInfo);
+        console.log(response, "from add to watchlist cryptoservice");
       } catch (err) {
         console.log(err, " err from server");
       }
     }
-
-    
-
-
-  // useEffect(() => {
-  //   const getMovieReviews = async () => {
-  //     const reviews = await MovieService.getMovieReviews();
-  //     // console.log(movies, "<-- from fetch trending movies");
-  //     setLoading(() => false);
-  //     setMovieReviews(reviews.results);
-  //     console.log(reviews, '<---reviews')
-  //   };
-  //   getMovieReviews();
-  // }, []);
 
   //=================================================================================
 
@@ -105,30 +91,30 @@ const MovieDetails = ({ user, handleLogout }) => {
         <br/>
         <Row>
           <Col>
-            <img className="detailsImg" src={TMDBImgUrl + movie.poster_path} alt={movie.title}></img>
+            <img className="detailsImg" src={TMDBImgUrl + crypto.poster_path} alt={crypto.title}></img>
           </Col>
           <Col>
             <ul>
-              <li className="movieInfo">
-                <span className="movieInfoTitles">TITLE: </span>
-                {movie.title}
+              <li className="cryptoInfo">
+                <span className="cryptoInfoNames">NAME: </span>
+                {crypto.name}
               </li>
               <br/>
-              <li className="movieInfo">
-                <span className="movieInfoTitles">OVERVIEW: </span>
-                {movie.overview}
+              <li className="cryptoInfo">
+                <span className="cryptoInfoNames">OVERVIEW: </span>
+                {crypto.overview}
               </li>
               <br/>
-              <li className="movieInfo">
-                <span className="movieInfoTitles">RELEASE DATE: </span>
-                {movie.release_date}
+              <li className="cryptoInfo">
+                <span className="cryptoInfoNames">CURRENT PRICE: </span>
+                {crypto.current_price}
               </li>
               <br/>
-              { alreadyWatched &&
-              <Button disabled={alreadyWatched} onClick={handleAddToWatchlist(movie)} variant="success">Added to your watch list!</Button>
+              { notInterested &&
+              <Button disabled={notInterested} onClick={handleAddToWatchlist(crypto)} variant="success">Added to your watch list!</Button>
               }
-              { !alreadyWatched &&
-              <Button disabled={alreadyWatched} onClick={handleAddToWatchlist(movie)} variant="success">Add to your watch list</Button>
+              { !notInterested &&
+              <Button disabled={notInterested} onClick={handleAddToWatchlist(crypto)} variant="success">Add to your watch list</Button>
               }
 
             </ul>
@@ -140,4 +126,4 @@ const MovieDetails = ({ user, handleLogout }) => {
   );
 };
 
-export default MovieDetails;
+export default CryptoDetails;
