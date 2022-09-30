@@ -5,7 +5,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Navbar from "../../components/Navbar/Navbar";
-import WatchlistMovie from "../../components/WatchlistCrypto/WatchlistCrypto";
+import WatchlistCrypto from "../../components/WatchlistCrypto/WatchlistCrypto";
 import userService from "../../utils/userService";
 import { useParams } from "react-router-dom";
 

@@ -41,7 +41,7 @@ export default function CryptoCarousel() {
         <img
           className="d-block w-100"
           src={TMDBImgUrl + crypto.backdrop_path}
-          alt={crypto.title}
+          alt={crypto.name}
         />
       </Carousel.Item>
     );

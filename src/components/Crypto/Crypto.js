@@ -17,7 +17,7 @@ const Crypto = (props) => {
   return (
     <div className="crypto image-container">
       <LinkContainer to={linkUrl + cryptoId}>
-        <img src={TMDBImgUrl + props.poster_path} alt={props.title}></img>
+        <img src={TMDBImgUrl + props.logo_path} alt={props.name}></img>
       </LinkContainer>
 
       <div className="overlay d-flex align-items-center justify-content-center">

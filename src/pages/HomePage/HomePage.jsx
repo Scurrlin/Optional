@@ -7,7 +7,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import Carousel from "../../components/Carousel/Carousel";
 import CryptoService from "../../utils/cryptoService";
 import Crypto from "../../components/Crypto/Crypto";
-import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import LoadingSpinner from "../../components/Loading/Loading";
 
 function HomePage({ user, handleLogout }) {
   const [cryptos, setCryptos] = useState([]);

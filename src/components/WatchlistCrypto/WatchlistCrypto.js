@@ -16,7 +16,7 @@ const WatchListCrypto = (props) => {
     <>
       <div className="crypto image-container">
         <LinkContainer to={linkUrl + cryptoId}>
-          <img src={props.movieImg} alt={props.cryptoName}></img>
+          <img src={props.cryptoImg} alt={props.cryptoName}></img>
         </LinkContainer>
         <div
           onClick={props.handleRemoveFromWatchlist}
