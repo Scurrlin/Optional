@@ -9,7 +9,7 @@ import CryptoService from "../../utils/cryptoService";
 import "./CryptoDetail.css";
 import { useParams } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
-import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import LoadingSpinner from "../../components/Loading/Loading";
 
 const CryptoDetails = ({ user, handleLogout }) => {
   const [Crypto, setCrypto] = useState("");

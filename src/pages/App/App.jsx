@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import SignupPage from "../SignupPage/SignupPage";
-import ProfilePage from "../ProfilePage/ProfilePage";
+import ProfilePage from "../UserProfile/UserProfile";
 import LoginPage from "../LoginPage/LoginPage";
 import userService from "../../utils/userService";
-import Home from "../Home/Home";
+import Home from "../HomePage/HomePage";
 import CryptoDetail from "../CryptoDetail/CryptoDetail";
 
 function App() {
