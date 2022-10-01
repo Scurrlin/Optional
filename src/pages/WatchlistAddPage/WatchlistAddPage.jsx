@@ -18,7 +18,7 @@ export default function WatchlistAddPage( {setLoading} ) {
     const history = useHistory();
 
     useEffect(() =>{
-        async function getWwtchlists() {
+        async function getWatchlists() {
             setLoading(true)
 			const watchlistList = await watchlistsAPI.getAll();
             if (watchlistList.length > 0) {
