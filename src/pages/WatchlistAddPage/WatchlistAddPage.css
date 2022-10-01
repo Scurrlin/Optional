@@ -1,0 +1,20 @@
+@media (max-width: 550px) {
+    .WatchlistAddPage form{
+        width:100%;
+    }
+    .WatchlistAddPage label {
+        font-size: 20px;
+        margin: auto;
+    }
+    .WatchlistAddPage input, .WatchlistAddPage select{
+        width: 90%;
+        height:10vh;
+        font-size: 30px;
+    }
+    .WatchlistAddPage button{
+        grid-column-start: 2;
+        width: 80%;
+        height: 10vh;
+        font-size: 20px;
+    }
+  }

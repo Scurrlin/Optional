@@ -1,100 +1,48 @@
-import React, { useState } from "react";
-import "./LoginPage.css";
-import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
-import userService from "../../utils/userService";
-import cryptoService from "../../utils/cryptoService";
-import Navbar from "../../components/Navbar/Navbar";
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import SignUpForm from '../../Components/SignUpForm/SignUpForm';
+import LoginForm from '../../Components/LoginForm/LoginForm';
+import { useState } from 'react';
+import * as usersService from '../../utilities/users-service';
 
 
+export default function AuthPage({ setUser }) {
+	const [login, setLogin] = useState(true)
+	const [error, setError] = useState('');
 
-export default function LoginPage({ handleSignUpOrLogin }) {
+	async function handleDemo(evt) {
+		// Prevent form from being submitted to the server
+		evt.preventDefault();
+		try {
+			// The promise returned by the signUp service method
+			// will resolve to the user object included in the
+			// payload of the JSON Web Token (JWT)
+			const user = await usersService.login({
+				email: "demo@demo",
+				password: '1234567',
+			});
+			setUser(user);
+		} catch {
+			setError('Log In Failed - Try Again');
+		}
+	}
 
-  //============STATE=======================
+	return (
+		<main>
+			<h3>AuthPage</h3>
+			{login? (
+				<p>No login credentials? <br/> 
+					<button className="no-button" onClick={()=>setLogin(!login)}>Register New Account</button> &nbsp;&nbsp; | &nbsp;&nbsp;<button onClick={handleDemo}>Login to Demo</button>
+					<br />{error}	
+				</p>
+			):(
+				<p>Have an account?<br/> 
+					<button className="no-button" onClick={()=>setLogin(!login)}>Login</button> 
+					{error}	
+				</p>
+			)}
 
-  const [error, setError] = useState('');
-  const [state, setState] = useState({
-    email: '',
-    password: ''
-  });
-
-  const navigate = useNavigate()
-
-  //=========FUNCTIONS==============================
-
-  const handleChange = (e) => {
-    setState({
-      ...state,
-      [e.target.name]: e.target.value
-    })
-  }
-
-  //--------------------------------------------------
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try{
-      await userService.login(state);
-      await cryptoService.createSession();
-      console.log("TMDB session ID", localStorage.getItem("tmdb_session_id"))
-
-      handleSignUpOrLogin();
-      navigate('/')
-    }catch(err){
-      console.log(err)
-      setError(err.message);
-    }
-  }
-
-  //=====================================================
-
-
-  return (
-    <>
-    <Navbar />
-    <div className="form-container">
-    <form onSubmit={handleSubmit} className="Auth-form">
-      <div className="Auth-form-content">
-        <h3 className="Auth-form-title">Log In</h3>
-        
-       
-        <div className="form-group mt-3">
-          <label>Email address</label>
-          <input
-            type='email'
-            name='email'
-            value={state.email}
-            onChange={handleChange}
-            className="form-control mt-1"
-            placeholder="Email Address"
-            required
-          />
-        </div>
-        <div className="form-group mt-3">
-          <label>Password</label>
-          <input
-            name= 'password'
-            type="password"
-            value={state.password}
-            onChange={handleChange}
-            className="form-control mt-1"
-            placeholder="Password"
-            required
-          />
-        </div>
-        
-        <div className="d-grid gap-2 mt-3">
-          <button type="submit" className="btn btn-secondary">
-            Submit
-          </button>
-        </div>
-      
-      </div>
-    </form>
-  </div>
-  </>
-  );
+			{login? <LoginForm setUser={setUser} />:<SignUpForm setUser={setUser} />}
+			
+		</main>
+	);
 }

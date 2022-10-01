@@ -83,7 +83,6 @@ export default function NavBar({ user, setUser }) {
             &nbsp; | &nbsp;
             <Link to="/watchlist">Watchlist</Link>
             &nbsp; | &nbsp;
-            <Link to="/about">About</Link>
           </div>
           <div className="nav-R">
             <AsyncSelect

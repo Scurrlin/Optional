@@ -1,14 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const usersCtrl = require('../../controllers/users');
+const usersCtrl = require('../../controllers/api/users');
+// require the authorization middleware function
+const ensureLoggedIn = require('../../config/ensureLoggedIn');
 
-/*---------- Public Routes ----------*/
-router.post('/signup', usersCtrl.signup);
+router.post('/', usersCtrl.create);
 router.post('/login', usersCtrl.login);
-router.get('/watchlist', usersCtrl.addCryptoToWatchlist);
-router.delete('/watchlist', usersCtrl.removeCryptoFromWatchlist);
-router.get('/:username', usersCtrl.profile);
-
-/*---------- Protected Routes ----------*/
+router.get('/check-token', ensureLoggedIn, usersCtrl.checkToken);
 
 module.exports = router;

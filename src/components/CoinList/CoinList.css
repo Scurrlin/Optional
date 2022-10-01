@@ -1,0 +1,155 @@
+.table-container {
+    overflow-x: auto;
+    overflow: auto;
+    max-height: 80vh;
+    border: 1px solid purple;
+  }
+  
+  .table-container table {
+    width:100%;
+    height:auto;
+    margin: auto;
+  }
+  
+  .table-container th {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    background: #694489;
+    color: white;
+    z-index: 3;
+  }
+  
+  .table-container td {
+    padding-right: 5px;
+  }
+  
+  .table-container tr{
+    height: 50px;
+  }
+  
+  .head-col {
+    width: 250px;
+    padding: 0;
+    height: 50px;
+  }
+  
+  .coin-name {
+    position: sticky;
+    position: -webkit-sticky;
+    left: 0;
+    background: #f8f8f8;
+    color: white;
+    z-index: 1;
+    display: flex;
+    justify-content: flex-start;
+  }
+  
+  /* .coin-R {
+    border: 1px solid blue;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  } */
+  .coin-L {
+    width: 50px;
+    text-align: left;
+    white-space: nowrap;
+    padding-right: 5px;
+    color: black;
+    font-size: 14px;
+    align-self: center;
+    vertical-align: middle;
+  }
+  .coin-R {
+    text-align: left;
+    align-self: center;
+    vertical-align: middle;
+  }
+  
+  .favicon {
+    height: 20px;
+    width: 20px;
+  }
+  
+  .coinImage {
+    max-width: 25px;
+    max-height: 25px;
+  }
+  
+  .green {
+    color:green
+  }
+  
+  .red {
+    color: red
+  }
+  
+  .ticker {
+    background-color: rgb(224, 224, 224);
+    border: 1px solid rgb(224, 224, 224);
+    padding: 5px;
+    border-radius: 10%;
+  }
+  
+  @media (max-width: 699px) {
+  
+    .mob-view {
+      display: grid;
+      grid-template-columns: [first-c] 50px [second-c] 40px [third-c] 110px;
+      grid-template-rows: [first-r] auto [second-r] auto;
+      width: 200px;
+      color: black;
+    }
+  
+    .rank-icon {
+      grid-column-start: first-c;
+      grid-column-end: span 1;
+      grid-row-start: first-r;
+      grid-row-end: span 2;
+      align-self: center;
+    }
+  
+    .coin-icon {
+      grid-column-start: second-c;
+      grid-column-end: span 1;
+      grid-row-start: first-r;
+      grid-row-end: span 2;
+      align-self: center;
+    }
+    
+    .coin-R {
+      grid-column-start: third-c;
+      grid-column-end: span 1;
+      grid-row-start: first-r;
+      grid-row-end: span 1;
+    }
+  
+    .ticker {
+      grid-column-start: third-c;
+      grid-column-end: span 1;
+      grid-row-start: second-r;
+      grid-row-end: span 1;
+      place-self: end;
+      margin-right: 10px;
+      background-color: rgb(224, 224, 224);
+      border: 1px solid rgb(224, 224, 224);
+      border-radius: 10%;
+    }
+  
+    .head-col {
+      height: auto;
+    }
+    /* .coin-R {
+      vertical-align: middle;
+      text-align: left;
+      margin: auto;
+    }
+    .coin-R a {
+      width: 100%;
+      height: 100%;
+    }
+    .coinImage {
+      display: hidden;
+    } */
+  }

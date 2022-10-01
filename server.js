@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const logger = require('morgan');
 const favicon = require('serve-favicon');
+const User = require('./models/user');
 
 require('./config/database');
 
@@ -35,6 +36,8 @@ const port = process.env.PORT || 3001;
 app.listen(port, function() {
   console.log(`Express app listening on port ${port}`);
 });
+
+let u, i, c, o;
 
 // Nodemon Server
 // NPM Start

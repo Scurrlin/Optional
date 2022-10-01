@@ -1,65 +1,99 @@
-import React, { useState } from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
-import "./App.css";
-import SignupPage from "../SignupPage/SignupPage";
-import ProfilePage from "../UserProfile/UserProfile";
-import LoginPage from "../LoginPage/LoginPage";
-import userService from "../../utils/userService";
-import Home from "../HomePage/HomePage";
-import CryptoDetail from "../CryptoDetail/CryptoDetail";
+import { useState } from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import { getUser } from '../../utilities/users-service';
+import AuthPage from '../AuthPage/AuthPage';
+import Index from '../Index/Index';
+import NavBar from '../../Components/NavBar/NavBar';
+import CoinDetailsPage from '../CoinDetailsPage/CoinDetailsPage'
+import WatchlistPage from '../WatchlstPage/WatchlistPage'
+import './App.css';
+import WatchlistDetailsPage from '../WatchlistDetailsPage/WatchlistDetailsPage';
+import WatchlistAddPage from '../WatchlistAddPage/WatchlistAddPage';
+import Loading from '../../Components/Loading/Loading'
+import ScrollToTop from '../../Components/ScrollToTop/ScrollToTop'
 
-function App() {
-  const [user, setUser] = useState(userService.getUser()); // getUser decodes our JWT token, into a javascript object
-  // this object corresponds to the jwt payload which is defined in the server signup or login function that looks like
-  // this  const token = createJWT(user); // where user was the document we created from mongo
+export default function App() {
+	const [user, setUser] = useState(getUser());
+	// const [coins, setCoins] = useState([]);
+	const [loading, setLoading] = useState(false)
 
-  function handleSignUpOrLogin() {
-    setUser(userService.getUser()); // getting the user from localstorage decoding the jwt
-  }
+	// useEffect(() => {
+	// 	history.push('/')
+	// }, [history, user]);
 
-  function handleLogout() {
-    userService.logout();
-    setUser(null);
-  }
+	// useEffect(() => {
+	// 	async function getCoins() {
+	// 		console.log('ello mate');
+	// 		const coinList = await coinsAPI.getAll();
+	// 		console.log('coinList is => ',coinList)
+	// 		setCoins(coinList)
+	// 	}
+	// 	getCoins();
+	// }, []);
 
-  if (user) {
-
-  //IF USER IS LOGGED IN
-  return (
-    <Routes>
-      <Route path="/" element={<Home handleLogout={handleLogout} user={user}/>} />
-      <Route
-        path="/login"
-        element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />}
-      />
-      <Route
-        path="/signup"
-        element={<SignupPage handleSignUpOrLogin={handleSignUpOrLogin} />}
-      />
-
-      <Route path="/crypto-details/:id" element={<CryptoDetail handleLogout={handleLogout} user={user} />} />
-
-      <Route path="/:username" element={<ProfilePage handleLogout={handleLogout} user={user} />} />
-
-    </Routes>
-  );
+	return (
+		<main className='App'>
+			{user ? (
+				<>
+					<NavBar user={user} setUser={setUser} />
+					<ScrollToTop />
+					<Switch>
+						<Route exact path="/">
+							<Index setLoading={setLoading} user={user}/>
+							{loading ? <Loading /> : null}
+						</Route>
+						<Route exact path='/details/:id'>
+							<CoinDetailsPage setLoading={setLoading} user={user}/>
+							{loading ? <Loading /> : null}
+						</Route>
+						<Route exact path='/watchlist'>
+							<WatchlistPage user={user} setLoading={setLoading}/>
+							{loading ? <Loading /> : null}
+						</Route>
+						<Route exact path='/watchlist/:id'>
+							<WatchlistDetailsPage user={user} setLoading={setLoading}/>
+							{loading ? <Loading /> : null}
+						</Route>
+						<Route exact path='/watchlist/add/:id'>
+							<WatchlistAddPage user={user} setLoading={setLoading}/>
+							{loading ? <Loading /> : null}
+						</Route>
+						<Redirect to='/' />
+					</Switch>
+				</>
+			) : (
+				// <AuthPage setUser={setUser} />
+				<>
+					<NavBar user={user} setUser={setUser} />
+					<ScrollToTop />
+					<Switch>
+						<Route exact path="/">
+							<Index setLoading={setLoading} user={user}/>
+							{loading ? <Loading /> : null}
+						</Route>
+						<Route exact path='/details/:id'>
+							<CoinDetailsPage setLoading={setLoading} user={user}/>
+							{loading ? <Loading /> : null}
+						</Route>
+						{/* <Route exact path='/watchlist'>
+							<WatchlistPage user={user} setLoading={setLoading}/>
+							{loading ? <Loading /> : null}
+						</Route>
+						<Route exact path='/watchlist/:id'>
+							<WatchlistDetailsPage user={user} setLoading={setLoading}/>
+							{loading ? <Loading /> : null}
+						</Route>
+						<Route exact path='/watchlist/add/:id'>
+							<WatchlistAddPage user={user} setLoading={setLoading}/>
+							{loading ? <Loading /> : null}
+						</Route> */}
+						<Route exact path='/auth'>
+							<AuthPage setUser={setUser} />
+						</Route>
+						<Redirect to='/auth' />
+					</Switch>
+				</>
+			)}
+		</main>
+	);
 }
-
-// // IF USER IS NOT LOGGED IN
-  return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route
-        path="/login"
-        element={<LoginPage handleSignUpOrLogin={handleSignUpOrLogin} />}
-      />
-      <Route
-        path="/signup"
-        element={<SignupPage handleSignUpOrLogin={handleSignUpOrLogin} />}
-      />
-      <Route path="/*" element={<Navigate to="/login" />} />
-    </Routes>
-  );
-  }
-
-export default App;
