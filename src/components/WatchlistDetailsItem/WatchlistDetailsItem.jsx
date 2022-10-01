@@ -27,7 +27,7 @@ export default function WatchlistDetailsItem({
 
     const updatedWatchlist = await watchlistsAPI.addCoin(form, coin.id);
     updatedWatchlist.addedQuantity.coins.forEach((e, idx) => {
-      updatedWatchlist.addedQuantity.coins[idx].usd = watchlsit.coins[idx].usd;
+      updatedWatchlist.addedQuantity.coins[idx].usd = watchlist.coins[idx].usd;
       updatedWatchlist.addedQuantity.coins[idx].usd_24h_change =
         watchlist.coins[idx].usd_24h_change;
     });

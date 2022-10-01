@@ -27,4 +27,3 @@ async function getDefault(req, res, next) {
   const coinList = await Coin.getDefault();
   res.json(coinList)
 }
-Footer

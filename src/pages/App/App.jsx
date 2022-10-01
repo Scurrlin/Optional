@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { getUser } from '../../utilities/users-service';
 import AuthPage from '../AuthPage/AuthPage';
 import Index from '../Index/Index';
 import NavBar from '../../Components/NavBar/NavBar';
 import CoinDetailsPage from '../CoinDetailsPage/CoinDetailsPage'
-import WatchlistPage from '../WatchlstPage/WatchlistPage'
+import WatchlistPage from '../WatchlistPage/WatchlistPage'
 import './App.css';
 import WatchlistDetailsPage from '../WatchlistDetailsPage/WatchlistDetailsPage';
 import WatchlistAddPage from '../WatchlistAddPage/WatchlistAddPage';

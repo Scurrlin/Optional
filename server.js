@@ -1,11 +1,13 @@
 require('dotenv').config();
+require('./config/database');
+
+let u, i, c, o;
+
 const express = require('express');
 const path = require('path');
 const logger = require('morgan');
 const favicon = require('serve-favicon');
 const User = require('./models/user');
-
-require('./config/database');
 
 // Require controllers here
 
@@ -21,10 +23,12 @@ app.use(express.static(path.join(__dirname, 'build'))); // this allows express t
 // Configure the auth middleware
 // This decodes the jwt token, and assigns
 // the user information to req.user
-app.use(require('./config/auth')); 
+app.use(require('./config/checkToken')); 
+app.use(require('./config/ensureLoggedIn')); 
 // api routes must be before the "catch all" route
 app.use('/api/users', require('./routes/api/users'));
-app.use('/api/cryptos', require('./routes/api/cryptos'));
+app.use('/api/coins', require('./routes/api/coins'));
+app.use('/api/watchlists', require('./routes/api/watchlists'))
 
 // "catch all" route
 app.get('/*', function(req, res) {
@@ -36,8 +40,6 @@ const port = process.env.PORT || 3001;
 app.listen(port, function() {
   console.log(`Express app listening on port ${port}`);
 });
-
-let u, i, c, o;
 
 // Nodemon Server
 // NPM Start

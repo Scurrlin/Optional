@@ -6,7 +6,7 @@ import star_light from "../../images/star_light.png"
 import { useEffect } from 'react';
 import { useState } from 'react';
 
-export default function CoinListItem({ coin, watchlstCoins }) {
+export default function CoinListItem({ coin, watchlistCoins }) {
   const url = `details/${coin.id}/`
   const fav = `watchlist/add/${coin.id}`
   const [isFav, setIsFav] = useState(false)
