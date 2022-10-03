@@ -1,9 +1,9 @@
 import './WatchlistPage.css';
 import { useState, useEffect } from 'react'
-import WatchlistList from '../../components/WatchlistList/WatchlistList'
+import WatchlistList from '../../Components/WatchlistList/WatchlistList'
 import * as watchlistsAPI from '../../utils/watchlists-api'
 import { Button } from 'react-bootstrap'
-import MyModal from '../../components/MyModal/MyModal';
+import MyModal from '../../Components/MyModal/MyModal';
 
 
 export default function WatchlistPage( {setLoading} ) {

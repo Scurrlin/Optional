@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import CoinList from '../../components/CoinList/CoinList'
-import Pagination from '../../components/Pagination/Pagination'
+import CoinList from '../../Components/CoinList/CoinList'
+import Pagination from '../../Components/Pagination/Pagination'
 import * as coinsAPI from '../../utils/coins-api'
 import * as watchlistAPI from '../../utils/watchlists-api'
 

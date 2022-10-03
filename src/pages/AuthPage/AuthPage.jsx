@@ -1,6 +1,6 @@
 import React from 'react';
-import SignUpForm from '../../components/SignUpForm/SignUpForm';
-import LoginForm from '../../components/LoginForm/LoginForm';
+import SignUpForm from '../../Components/SignUpForm/SignUpForm';
+import LoginForm from '../../Components/LoginForm/LoginForm';
 import { useState } from 'react';
 import * as usersService from '../../utils/users-service';
 
