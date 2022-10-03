@@ -2,15 +2,15 @@ const express = require('express');
 const router = express.Router();
 const watchlistsCtrl = require('../../controllers/api/watchlists');
 // require the authorization middleware function
-const ensureLoggedIn = require('../../config/ensureLoggedIn');
+const verifyLoggedIn = require('../../config/verifyLoggedIn');
 
-router.get('/', ensureLoggedIn, watchlistsCtrl.index);
-router.get('/favs', ensureLoggedIn, watchlistsCtrl.getFavs)
-router.get('/:id', ensureLoggedIn, watchlistsCtrl.getOne)
-router.post('/create', ensureLoggedIn, watchlistsCtrl.create)
-router.put('/update/:id', ensureLoggedIn, watchlistsCtrl.update)
-router.put('/:id/add/:cid', ensureLoggedIn, watchlistsCtrl.addCoin)
-router.delete('/delete/:id', ensureLoggedIn, watchlistsCtrl.deleteOne)
-router.put('/deleteCoin', ensureLoggedIn, watchlistsCtrl.deleteCoin)
+router.get('/', verifyLoggedIn, watchlistsCtrl.index);
+router.get('/favs', verifyLoggedIn, watchlistsCtrl.getFavs)
+router.get('/:id', verifyLoggedIn, watchlistsCtrl.getOne)
+router.post('/create', verifyLoggedIn, watchlistsCtrl.create)
+router.put('/update/:id', verifyLoggedIn, watchlistsCtrl.update)
+router.put('/:id/add/:cid', verifyLoggedIn, watchlistsCtrl.addCoin)
+router.delete('/delete/:id', verifyLoggedIn, watchlistsCtrl.deleteOne)
+router.put('/deleteCoin', verifyLoggedIn, watchlistsCtrl.deleteCoin)
 
 module.exports = router;

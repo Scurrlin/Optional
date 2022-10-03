@@ -44,13 +44,7 @@
     display: flex;
     justify-content: flex-start;
   }
-  
-  /* .coin-R {
-    border: 1px solid blue;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  } */
+ 
   .coin-L {
     width: 50px;
     text-align: left;
@@ -140,16 +134,4 @@
     .head-col {
       height: auto;
     }
-    /* .coin-R {
-      vertical-align: middle;
-      text-align: left;
-      margin: auto;
-    }
-    .coin-R a {
-      width: 100%;
-      height: 100%;
-    }
-    .coinImage {
-      display: hidden;
-    } */
   }

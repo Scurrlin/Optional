@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import WatchlistListItem from "../WatchlistListItem/WatchlistListItem";
 import Table from 'react-bootstrap/Table'
 import MyModal from '../../Components/MyModal/MyModal';
-import * as watchlistsAPI from '../../utilities/watchlists-api'
+import * as watchlistsAPI from '../../utils/watchlists-api'
 import MyToast from '../../Components/MyToast/MyToast';
 import './WatchlistList.css';
 

@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { Link } from "react-router-dom";
-import * as userService from "../../utilities/users-service";
+import * as userService from "../../utils/users-service";
 import AsyncSelect from "react-select/async";
-import * as coinsAPI from "../../utilities/coins-api";
+import * as coinsAPI from "../../utils/coins-api";
 import "./NavBar.css";
 
 export default function NavBar({ user, setUser }) {
@@ -23,9 +23,7 @@ export default function NavBar({ user, setUser }) {
     getCoins();
   }, []);
   function handleLogOut() {
-    // Delegate to the users-service
     userService.logOut();
-    // Update state will also cause a re-render
     setUser(null);
   }
 
@@ -42,8 +40,8 @@ export default function NavBar({ user, setUser }) {
       }, 1000);
     });
 
-  function handleChange(evt) {
-    history.push(`/details/${evt.value}`);
+  function handleChange(e) {
+    history.push(`/details/${e.value}`);
   }
 
   const Large = ({ children }) => {
@@ -60,7 +58,7 @@ export default function NavBar({ user, setUser }) {
     <div className="NavBar">
       <Large>
         <div className="top-title">
-          <h2>©&nbsp;BootstrapMarketCap</h2>
+          <h2>💎&nbsp;Crypt0Watch&nbsp;💎</h2>
           <div>
             {user ? (
               <>
@@ -83,7 +81,6 @@ export default function NavBar({ user, setUser }) {
             <Link to="/">Home</Link>
             &nbsp; | &nbsp;
             <Link to="/watchlist">Watchlist</Link>
-            &nbsp; | &nbsp;
           </div>
           <div className="nav-R">
             <AsyncSelect
@@ -100,15 +97,13 @@ export default function NavBar({ user, setUser }) {
 
       <Mobile>
         <div className="top-title">
-          <h2>©&nbsp;BootstrapMarketCap</h2>
+          <h2>💎&nbsp;Crypt0Watch&nbsp;💎</h2>
         </div>
         <nav>
           <div >
             <Link to="/">Home</Link>
             &nbsp; | &nbsp;
-            <Link to="/watchlist">Wathclist</Link>
-            &nbsp; | &nbsp;
-            <Link to="/about">About</Link>
+            <Link to="/watchlist">Watchlist</Link>
             {user ? (
               <>
                 &nbsp; | &nbsp;

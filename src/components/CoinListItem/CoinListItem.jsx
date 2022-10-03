@@ -1,8 +1,8 @@
 import '../CoinList/CoinList.css'
 import { Link } from "react-router-dom"
 import { useMediaQuery } from "react-responsive";
-import star from "../../images/star.png"
-import star_light from "../../images/star_light.png"
+import WSB from "../../images/WSB.png"
+import WSB_Selected from "../../images/WSB_Selected.png"
 import { useEffect } from 'react';
 import { useState } from 'react';
 
@@ -33,7 +33,7 @@ export default function CoinListItem({ coin, watchlistCoins }) {
     <tr>
       <Large>
         <td className="coin-name head-col">
-          <div className="coin-L"><Link to={fav}>{isFav ? <img src={star_light} alt="fav" className="favicon"/> : <img src={star} alt="fav" className="favicon"/>}</Link>{coin.rank}</div>
+          <div className="coin-L"><Link to={fav}>{isFav ? <img src={WSB_Selected} alt="fav" className="favicon"/> : <img src={WSB} alt="fav" className="favicon"/>}</Link>{coin.rank}</div>
             
             <div className="coin-R"><Link to={url}><img src={coin.image} alt="coin" className="coinImage"/>{coin.name}</Link></div>
             
@@ -42,7 +42,7 @@ export default function CoinListItem({ coin, watchlistCoins }) {
       </Large>
       <Mobile>
         <td className="coin-name head-col mob-view">
-          <div className="rank-icon"><Link to={fav}>{isFav ? <img src={star_light} alt="fav" className="favicon"/> : <img src={star} alt="fav" className="favicon"/>}</Link>{coin.rank}</div>
+          <div className="rank-icon"><Link to={fav}>{isFav ? <img src={WSB_Selected} alt="fav" className="favicon"/> : <img src={WSB} alt="fav" className="favicon"/>}</Link>{coin.rank}</div>
           <div className="coin-icon"><img src={coin.image} alt="coin" className="coinImage"/></div>  
           <div className="coin-R"><Link to={url}>{coin.name}</Link></div>
           <div className="ticker">&nbsp;{coin.ticker}&nbsp;</div>

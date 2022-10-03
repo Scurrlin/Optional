@@ -1,8 +1,8 @@
 
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import * as coinsAPI from '../../utilities/coins-api'
-import * as watchlistAPI from '../../utilities/watchlists-api'
+import * as coinsAPI from '../../utils/coins-api'
+import * as watchlistAPI from '../../utils/watchlists-api'
 import CoinDetails from '../../Components/CoinDetails/CoinDetails';
 
 export default function CoinDetailsPage( {setLoading, user} ) {

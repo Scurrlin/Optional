@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import CoinList from '../../Components/CoinList/CoinList'
 import Pagination from '../../Components/Pagination/Pagination'
-import * as coinsAPI from '../../utilities/coins-api'
-import * as watchlistAPI from '../../utilities/watchlists-api'
+import * as coinsAPI from '../../utils/coins-api'
+import * as watchlistAPI from '../../utils/watchlists-api'
 
 
 

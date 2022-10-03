@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import * as usersService from '../../utilities/users-service';
+import * as usersService from '../../utils/users-service';
 
 export default function LogIn({ setUser }) {
 	const [credentials, setCredentials] = useState({
@@ -8,14 +8,14 @@ export default function LogIn({ setUser }) {
 	});
 	const [error, setError] = useState('');
 
-	function handleChange(evt) {
-		setCredentials({ ...credentials, [evt.target.name]: evt.target.value });
+	function handleChange(e) {
+		setCredentials({ ...credentials, [e.target.name]: e.target.value });
 		setError('');
 	}
 
-	async function handleSubmit(evt) {
+	async function handleSubmit(e) {
 		// Prevent form from being submitted to the server
-		evt.preventDefault();
+		e.preventDefault();
 		try {
 			// The promise returned by the signUp service method
 			// will resolve to the user object included in the

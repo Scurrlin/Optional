@@ -3,14 +3,14 @@ import Spinner from 'react-bootstrap/Spinner'
 
 export default function Loading() {
     const [waiting, setWaiting] = useState("")
-    var delayInMilliseconds = 5000; //1 second
+    var delayInMilliseconds = 5000;
 
     useEffect(() => {
-        let isMounted = true;               // note mutable flag
+        let isMounted = true;
         setTimeout(function() {
-            if (isMounted) setWaiting(<p>Hmm this seems to be taking longer than average. Please reload page!</p>)
+            if (isMounted) setWaiting(<p>Elon Musk probably Tweeted about Dogecoin again... Try reloading the page!</p>)
         }, delayInMilliseconds);
-        return () => { isMounted = false }; // use cleanup to toggle value, if unmounted
+        return () => { isMounted = false };
       }, []);
 
     return(

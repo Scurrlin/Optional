@@ -1,12 +1,12 @@
 :root {
-  --white: #FFFFFF;
-  --tan-1: #ebebeb;
+  --black: #000000;
+  --tan-1: #a0a0a0;
   --tan-2: #E7E2DD;
   --tan-3: #976fb9;
   --tan-4: #c1abd4;
   --orange: #F67F00;
   --text-light: hsl(0, 0%, 100%);
-  --text-dark: black;
+  --text-dark: white;
   --main-purple: #694489;
   --sub-purple: purple;
 }
@@ -37,7 +37,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* background-color: var(--tan-4); */
-  background-color: white;
+  background-color: whitesmoke;
   padding: 2vmin;
   height: 100vh;
 }
@@ -125,7 +125,7 @@ input {
   border: .1vmin solid var(--tan-3);
   border-radius: .5vmin;
   color: var(--text-dark);
-  background-image: none !important; /* prevent lastpass */
+  background-image: none !important;
   outline: none;
 }
 

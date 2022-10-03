@@ -39,10 +39,10 @@ export function logOut() {
 	localStorage.removeItem('token');
 }
 
-export function checkToken() {
+export function verifyToken() {
 	// Just so you don't forget how to use .then
 	return usersAPI
-		.checkToken()
+		.verifyToken()
 		.then(dateStr => console.log(new Date(dateStr)));
 }
 

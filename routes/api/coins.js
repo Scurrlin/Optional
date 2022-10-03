@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const coinsCtrl = require('../../controllers/api/coins');
 // require the authorization middleware function
-const ensureLoggedIn = require('../../config/ensureLoggedIn');
+const verifyLoggedIn = require('../../config/verifyLoggedIn');
 
 router.get('/', coinsCtrl.index);
 router.get('/search', coinsCtrl.search);

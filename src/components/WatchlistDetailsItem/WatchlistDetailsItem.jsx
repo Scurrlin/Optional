@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import * as watchlistsAPI from "../../utilities/watchlists-api";
+import * as watchlistsAPI from "../../utils/watchlists-api";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
 import "./WatchlistDetailsItem.css"

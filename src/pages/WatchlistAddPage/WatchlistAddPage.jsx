@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useHistory, useParams } from "react-router-dom"
-import * as watchlistsAPI from '../../utilities/watchlists-api'
+import * as watchlistsAPI from '../../utils/watchlists-api'
 import MyToast from "../../Components/MyToast/MyToast"
 import './WatchlistAddPage.css'
 

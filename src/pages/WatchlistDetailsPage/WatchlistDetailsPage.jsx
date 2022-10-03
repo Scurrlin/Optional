@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import * as watchlistsAPI from "../../utilities/watchlists-api";
+import * as watchlistsAPI from "../../utils/watchlists-api";
 import WatchlistDetailsItem from "../../Components/WatchlistDetailsItem/WatchlistDetailsItem";
 import Table from 'react-bootstrap/Table'
 import MyModal from '../../Components/MyModal/MyModal';
@@ -15,9 +15,7 @@ export default function WatchlistDetailsPage( {setLoading} ) {
     watchlistId: "",
     coinId: "",
   })
-  // const {
-  //   state: { watchlist },
-  // } = useLocation();
+  
   const [watchlist, setWatchlist] = useState({})
   const history = useHistory()
 

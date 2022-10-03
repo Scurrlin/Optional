@@ -10,8 +10,8 @@ export async function login(credentials) {
 	return sendRequest(`${BASE_URL}/login`, 'POST', credentials);
 }
 
-export function checkToken() {
-	return sendRequest(`${BASE_URL}/check-token`);
+export function verifyToken() {
+	return sendRequest(`${BASE_URL}/verify-token`);
 }
 
 /*--- Helper Functions ---*/

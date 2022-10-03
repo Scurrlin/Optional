@@ -2,16 +2,16 @@ import React from 'react';
 import SignUpForm from '../../Components/SignUpForm/SignUpForm';
 import LoginForm from '../../Components/LoginForm/LoginForm';
 import { useState } from 'react';
-import * as usersService from '../../utilities/users-service';
+import * as usersService from '../../utils/users-service';
 
 
 export default function AuthPage({ setUser }) {
 	const [login, setLogin] = useState(true)
 	const [error, setError] = useState('');
 
-	async function handleDemo(evt) {
+	async function handleDemo(e) {
 		// Prevent form from being submitted to the server
-		evt.preventDefault();
+		e.preventDefault();
 		try {
 			// The promise returned by the signUp service method
 			// will resolve to the user object included in the
