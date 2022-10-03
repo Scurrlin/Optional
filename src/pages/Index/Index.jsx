@@ -20,6 +20,7 @@ export default function Index( {setLoading, user} ) {
 				const watchlists = await watchlistAPI.getFavs();
 				if (watchlists.success) {
 					setWatchlistCoins(watchlists.uniqueArray)
+					setLoading(false);
 				}
 			}
 			setCoins(coinList)
