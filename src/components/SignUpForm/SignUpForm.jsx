@@ -1,8 +1,8 @@
 
-import { Component } from 'react';
+import { component } from 'react';
 import { signUp } from '../../utils/users-service';
 
-export default class SignUpForm extends Component {
+export default class SignUpForm extends component {
 	constructor() {
 		super();
 		this.state = {
