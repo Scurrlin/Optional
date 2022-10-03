@@ -8,7 +8,7 @@ export default function Loading() {
     useEffect(() => {
         let isMounted = true;
         setTimeout(function() {
-            if (isMounted) setWaiting(<p>Elon Musk probably Tweeted about Dogecoin again... Try reloading the page!</p>)
+            if (isMounted) setWaiting(<p>Elon Musk probably tweeted about Dogecoin again... Try reloading the page!</p>)
         }, delayInMilliseconds);
         return () => { isMounted = false };
       }, []);

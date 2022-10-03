@@ -1,7 +1,7 @@
 // import React from "react";
 import { useState, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
-// import { useMediaQuery } from "react-responsive";
+import { useMediaQuery } from "react-responsive";
 import * as userService from "../../utils/users-service";
 import AsyncSelect from "react-select/async";
 import * as coinsAPI from "../../utils/coins-api";
@@ -43,19 +43,19 @@ export default function Navv({ user, setUser }) {
     history.push(`/details/${e.value}`);
   }
 
-  // const Large = ({ children }) => {
-  //   const isDesktop = useMediaQuery({ minWidth: 580 });
-  //   return isDesktop ? children : null;
-  // };
+  const Large = ({ children }) => {
+    const isDesktop = useMediaQuery({ minWidth: 580 });
+    return isDesktop ? children : null;
+  };
 
-  // const Mobile = ({ children }) => {
-  //   const isMobile = useMediaQuery({ maxWidth: 579 })
-  //   return isMobile ? children : null
-  // }
+  const Mobile = ({ children }) => {
+    const isMobile = useMediaQuery({ maxWidth: 579 })
+    return isMobile ? children : null
+  }
 
   return (
     <div className="Navv">
-      {/* <Large> */}
+      <Large>
         <div className="top-title">
           <h2>💎&nbsp;Crypt0Watch&nbsp;💎</h2>
           <div>
@@ -91,11 +91,11 @@ export default function Navv({ user, setUser }) {
             />
           </div>
         </nav>
-      {/* </Large> */}
+      </Large>
 
 
-      {/* <Mobile> */}
-        {/* <div className="top-title">
+      <Mobile>
+        <div className="top-title">
           <h2>💎&nbsp;Crypt0Watch&nbsp;💎</h2>
         </div>
         <nav>
@@ -126,8 +126,8 @@ export default function Navv({ user, setUser }) {
               onChange={handleChange}
             />
           </div>
-        </nav> */}
-      {/* </Mobile> */}
+        </nav>
+      </Mobile>
     </div>
   );
 }

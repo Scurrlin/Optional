@@ -1,11 +1,11 @@
 :root {
   --black: #000000;
-  --tan-2: #E7E2DD;
+  --tan-2:  #E7E2DD;
   --tan-3: #3d175f;
   --tan-4: #3d175f;
   --orange: #F67F00;
   --text-light: hsl(0, 0%, 100%);
-  --text-dark: white;
+  --text-dark: black;
   --main-purple: #3d175f;
   --sub-purple: #3d175f;
 }
@@ -30,9 +30,6 @@ a:hover {
 
 body {
   margin: 0;
-  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-  sans-serif; */
   font-family: 'Rubik', 'Segoe UI', 'Roboto', 'Oxygen',
   'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
   sans-serif;
@@ -41,8 +38,7 @@ body {
   /* background-color: var(--tan-4); */
   height: 100%;
 	width: 100%;
-  /* background: url("https://i.imgur.com/UOUSyxn.jpg"); */
-	background: url("https://source.unsplash.com/MLKHO1fYhj8/2400x1800");
+  background: url("https://i.imgur.com/6XX7AXz.jpg");
 	background-repeat: no-repeat;
 	background-size: cover;
 	position: relative;
