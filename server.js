@@ -26,7 +26,7 @@ app.use(express.static(path.join(__dirname, 'build'))); // this allows express t
 // api routes must be before the "catch all" route
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/coins', require('./routes/api/coins'));
-app.use('/api/watchlists', require('./routes/api/watchlists'))
+app.use('/api/watchlists', require('./routes/api/watchlists'));
 
 // "catch all" route
 app.get('/*', function(req, res) {
