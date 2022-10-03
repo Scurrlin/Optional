@@ -1,8 +1,10 @@
 import { getToken } from './users-service';
 
 const BASE_URL = '/api/users';
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
 export async function signUp(userData) {
+	console.log(userData);
 	return sendRequest(BASE_URL, 'POST', userData);
 }
 
@@ -31,7 +33,7 @@ async function sendRequest(url, method = 'GET', payload = null) {
 		// Prefacing with 'Bearer' is recommended for HTTP specificaion
 		options.headers.Authorization = `Bearer ${token}`;
 	}
-	
+
 	const res = await fetch(url, options);
 	// res.ok will be false if the status code is set to 4xx in the controller aciton
 	if (res.ok) return res.json();

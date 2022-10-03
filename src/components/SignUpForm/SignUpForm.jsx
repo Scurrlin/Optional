@@ -1,6 +1,6 @@
 
 import { Component } from 'react';
-import { signUp } from '../../utils/users-service';
+import * as userAPI from '../../utils/users-service';
 
 export default class SignUpForm extends Component {
 	constructor() {
@@ -27,7 +27,7 @@ export default class SignUpForm extends Component {
 			const formData = { ...this.state };
 			delete formData.error;
 			delete formData.confirm;
-			const user = await signUp(formData);
+			const user = await userAPI.signUp(formData);
 			this.props.setUser(user);
 		} catch {
 			// An error occurred

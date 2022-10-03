@@ -33,6 +33,7 @@ async function index(req, res, next) {
 }
 
 async function getFavs(req,res, next) {
+
   try{
     const watchlistList = await Watchlist.find({user: req.user._id});
     const arr = []

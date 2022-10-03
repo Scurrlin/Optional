@@ -12,10 +12,9 @@ export default function WatchlistDetailsPage( {setLoading} ) {
   const [coins, setCoins] = useState([]);
   const [modalShow, setModalShow] = useState(false);
   const [deleteCoin, setDeleteCoin] = useState({
-    watchlistId: "",
+    portfolioId: "",
     coinId: "",
   })
-  
   const [watchlist, setWatchlist] = useState({})
   const history = useHistory()
 

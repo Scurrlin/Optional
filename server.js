@@ -24,6 +24,7 @@ app.use(express.static(path.join(__dirname, 'build'))); // this allows express t
 // This decodes the jwt token, and assigns
 // the user information to req.user
 // api routes must be before the "catch all" route
+app.use( require('./config/checkToken'));
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/coins', require('./routes/api/coins'));
 app.use('/api/watchlists', require('./routes/api/watchlists'));
