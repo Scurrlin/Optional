@@ -1,6 +1,6 @@
 const request = require('request');
 const rootUrl = 'https://api.coingecko.com/api/v3/';
-const fetch = require('node-fetch');
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
 module.exports = {
     getAll,
