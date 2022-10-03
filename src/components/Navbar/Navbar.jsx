@@ -1,8 +1,7 @@
 // import React from "react";
 import { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
-import { Link } from "react-router-dom";
 import * as userService from "../../utils/users-service";
 import AsyncSelect from "react-select/async";
 import * as coinsAPI from "../../utils/coins-api";

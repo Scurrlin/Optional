@@ -3,7 +3,6 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import { getUser } from '../../utils/users-service';
 import AuthPage from '../AuthPage/AuthPage';
 import Index from '../Index/Index';
-import NavBar from '../../Components/NavBar/NavBar';
 import CoinDetailsPage from '../CoinDetailsPage/CoinDetailsPage'
 import WatchlistPage from '../WatchlistPage/WatchlistPage'
 import './App.css';
@@ -11,6 +10,7 @@ import WatchlistDetailsPage from '../WatchlistDetailsPage/WatchlistDetailsPage';
 import WatchlistAddPage from '../WatchlistAddPage/WatchlistAddPage';
 import Loading from '../../Components/Loading/Loading'
 import ScrollToTop from '../../Components/ScrollToTop/ScrollToTop'
+import NavBar from '../../Components/NavBar/NavBar';
 
 export default function App() {
 	const [user, setUser] = useState(getUser());
