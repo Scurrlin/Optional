@@ -8,9 +8,9 @@ import WatchlistPage from '../WatchlistPage/WatchlistPage'
 import './App.css';
 import WatchlistDetailsPage from '../WatchlistDetailsPage/WatchlistDetailsPage';
 import WatchlistAddPage from '../WatchlistAddPage/WatchlistAddPage';
-import Loading from '../../Components/Loading/Loading'
-import ScrollToTop from '../../Components/ScrollToTop/ScrollToTop'
-import NavBar from '../../Components/NavBar/NavBar';
+import Loading from '../../components/Loading/Loading'
+import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
+import NavBar from '../../components/NavBar/NavBar';
 
 export default function App() {
 	const [user, setUser] = useState(getUser());
