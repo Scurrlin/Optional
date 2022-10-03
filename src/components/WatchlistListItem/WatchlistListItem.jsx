@@ -1,9 +1,8 @@
-
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap'
 
-export default function WatchlistListItem({watchlist, handleChange, isDefault, deleteButton}) {
+export default function WatchlistListItem({watchlist, handlechange, isDefault, deleteButton}) {
     const [total, setTotal] = useState([])
     const url= `/watchlist/${watchlist._id}`
     useEffect(() => {
@@ -14,7 +13,7 @@ export default function WatchlistListItem({watchlist, handleChange, isDefault, d
     }, [watchlist])
     return(
         <tr>
-            <td className='align-R'><input type="radio" onChange={handleChange} name="isDefault" value={watchlist._id} checked={watchlist._id === isDefault? true:false}/></td>
+            <td className='align-R'><input type="radio" onChange={handlechange} name="isDefault" value={watchlist._id} checked={watchlist._id === isDefault? true:false}/></td>
             <td className='align-L'><Link to={url}><h5>{watchlist.name}</h5></Link></td>
             {/* <td><Link to={{
             pathname: url,

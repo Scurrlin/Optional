@@ -1,7 +1,7 @@
 #dropdown-basic-button {
     background-color: transparent;
     outline:none;
-    color: white;
+    color: black;
     border:none;
     font-weight: bold;
     color: var(--main-purple)

@@ -1,0 +1,11 @@
+WatchlistList td {
+    vertical-align: middle;
+    margin: auto;
+}
+.align-R {
+    text-align: right;
+}
+
+.align-L {
+    text-align: left;
+}
