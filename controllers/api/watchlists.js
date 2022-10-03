@@ -51,7 +51,7 @@ async function getFavs(req,res, next) {
 
 async function getOne(req, res, next) {
   const watchlist = await Watchlist.findById(req.params.id)
-  if (String(portfolio.user) !== String(req.user._id)) {
+  if (String(watchlist.user) !== String(req.user._id)) {
     return res.json({error: "invalid user"})
   }
   const arr = []
@@ -94,8 +94,8 @@ async function addCoin(req, res, next) {
     const id = req.params.id;
     const cid = req.params.cid;
     const test = `coins.${cid}`
-    const addedCoin = await Portfolio.findOneAndUpdate({_id: id, 'coins.id': {$ne: cid}}, {$push: {"coins": {"id": cid, "quantity":Number(req.body.quantity)}}},{ returnOriginal: false })
-    const addedQuantity = await Portfolio.findOneAndUpdate({_id: id, "coins.id": cid}, {$set: {"coins.$.quantity": Number(req.body.quantity)}},{ returnOriginal: false })
+    const addedCoin = await Watchlist.findOneAndUpdate({_id: id, 'coins.id': {$ne: cid}}, {$push: {"coins": {"id": cid, "quantity":Number(req.body.quantity)}}},{ returnOriginal: false })
+    const addedQuantity = await Watchlist.findOneAndUpdate({_id: id, "coins.id": cid}, {$set: {"coins.$.quantity": Number(req.body.quantity)}},{ returnOriginal: false })
     res.json({success:true, addedQuantity})
   } catch(err) {
     res.send(err)

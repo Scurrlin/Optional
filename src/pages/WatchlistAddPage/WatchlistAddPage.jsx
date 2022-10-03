@@ -56,7 +56,7 @@ export default function WatchlistAddPage( {setLoading} ) {
             <form autoComplete="off" onSubmit={handleSubmit}>
             <label >Choose a watchlist:</label>
             <select name="id" onChange={handleChange}>
-                {watchlists.length !== 0 ? (watchlists.map((e, idx)=>{return <option key={idx} value={e._id} selected={e.isDefault?"selected":""}>{e.name}</option>})):(<option value={null} selected >NO PORTFOLIO MADE (Visit myPortfolios)</option>)}
+                {watchlists.length !== 0 ? (watchlists.map((e, idx)=>{return <option key={idx} value={e._id} selected={e.isDefault?"selected":""}>{e.name}</option>})):(<option value={null} selected >NO WATCHLIST MADE (Visit myWatchlists)</option>)}
             </select>
 
             <label>Amount Owned:</label>
