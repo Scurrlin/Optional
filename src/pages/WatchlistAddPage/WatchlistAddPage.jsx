@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useHistory, useParams } from "react-router-dom"
 import * as watchlistsAPI from '../../utils/watchlists-api'
-import MyToast from "../../Components/MyToast/MyToast"
+import MyToast from "../../components/MyToast/MyToast"
 import './WatchlistAddPage.css'
 
 export default function WatchlistAddPage( {setLoading} ) {

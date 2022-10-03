@@ -1,9 +1,9 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import * as watchlistsAPI from "../../utils/watchlists-api";
-import WatchlistDetailsItem from "../../Components/WatchlistDetailsItem/WatchlistDetailsItem";
+import WatchlistDetailsItem from "../../components/WatchlistDetailsItem/WatchlistDetailsItem";
 import Table from 'react-bootstrap/Table'
-import MyModal from '../../Components/MyModal/MyModal';
+import MyModal from '../../components/MyModal/MyModal';
 import { useHistory } from 'react-router'
 
 export default function WatchlistDetailsPage( {setLoading} ) {

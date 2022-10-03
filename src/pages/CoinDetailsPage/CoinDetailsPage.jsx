@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import * as coinsAPI from '../../utils/coins-api'
 import * as watchlistAPI from '../../utils/watchlists-api'
-import CoinDetails from '../../Components/CoinDetails/CoinDetails';
+import CoinDetails from '../../components/CoinDetails/CoinDetails';
 
 export default function CoinDetailsPage( {setLoading, user} ) {
     const [coin, setCoin] = useState([])
