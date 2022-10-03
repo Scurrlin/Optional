@@ -7,11 +7,12 @@
 }
 
 .smol {
-    color: rgb(240, 233, 233);
+    color: rgb(142, 135, 135);
     font-size: 16px;
     padding: 10px;
 }
 
 .b {
     font-weight: bold;
+    color: black;
 }

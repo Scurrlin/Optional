@@ -2,7 +2,7 @@
     overflow-x: auto;
     overflow: auto;
     max-height: 80vh;
-    border: 1px solid purple;
+    border: 1px solid black;
   }
   
   .table-container table {
@@ -15,8 +15,8 @@
     position: sticky;
     position: -webkit-sticky;
     top: 0;
-    background: #694489;
-    color: white;
+    background: linear-gradient(to top, rgb(252, 255, 0)  0%, rgb(255, 168, 168)  100%);
+    color: black;
     z-index: 3;
   }
   
@@ -38,8 +38,8 @@
     position: sticky;
     position: -webkit-sticky;
     left: 0;
-    background: #f8f8f8;
-    color: white;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    color: black;
     z-index: 1;
     display: flex;
     justify-content: flex-start;

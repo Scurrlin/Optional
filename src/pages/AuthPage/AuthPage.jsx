@@ -31,7 +31,8 @@ export default function AuthPage({ setUser }) {
 			<h3>AuthPage</h3>
 			{login? (
 				<p>No login credentials? <br/> 
-					<button className="no-button" onClick={()=>setLogin(!login)}>Register New Account</button> &nbsp;&nbsp; | &nbsp;&nbsp;<button onClick={handleDemo}>Login to Demo</button>
+					<button className="no-button" onClick={()=>setLogin(!login)}>Register New Account</button>
+					{/* <button onClick={handleDemo}>Login to Demo</button> */}
 					<br />{error}	
 				</p>
 			):(
