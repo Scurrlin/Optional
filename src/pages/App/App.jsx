@@ -10,7 +10,7 @@ import WatchlistDetailsPage from '../WatchlistDetailsPage/WatchlistDetailsPage';
 import WatchlistAddPage from '../WatchlistAddPage/WatchlistAddPage';
 import Loading from '../../components/Loading/Loading'
 import ScrollToTop from '../../components/ScrollToTop/ScrollToTop'
-import NavBar from '../../components/NavBar/NavBar';
+import Navv from '../../components/Navv/Navv';
 
 export default function App() {
 	const [user, setUser] = useState(getUser());
@@ -20,7 +20,7 @@ export default function App() {
 		<main className='App'>
 			{user ? (
 				<>
-					<NavBar user={user} setUser={setUser} />
+					<Navv user={user} setUser={setUser} />
 					<ScrollToTop />
 					<Switch>
 						<Route exact path="/">
@@ -49,7 +49,7 @@ export default function App() {
 			) : (
 				// <AuthPage setUser={setUser} />
 				<>
-					<NavBar user={user} setUser={setUser} />
+					<Navv user={user} setUser={setUser} />
 					<ScrollToTop />
 					<Switch>
 						<Route exact path="/">

@@ -5,9 +5,9 @@ import { useHistory, Link } from "react-router-dom";
 import * as userService from "../../utils/users-service";
 import AsyncSelect from "react-select/async";
 import * as coinsAPI from "../../utils/coins-api";
-import "./NavBar.css";
+import "./Navv.css";
 
-export default function NavBar({ user, setUser }) {
+export default function Navv({ user, setUser }) {
   const [defaultOptions, setDefaultOptions] = useState([]);
   const [options, setOptions] = useState([]);
   let history = useHistory();
@@ -54,7 +54,7 @@ export default function NavBar({ user, setUser }) {
   // }
 
   return (
-    <div className="NavBar">
+    <div className="Navv">
       {/* <Large> */}
         <div className="top-title">
           <h2>💎&nbsp;Crypt0Watch&nbsp;💎</h2>
