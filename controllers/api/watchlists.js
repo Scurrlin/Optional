@@ -1,6 +1,7 @@
 const Watchlist = require("../../models/watchlist");
 const Coin = require("../../models/coin")
 
+
 module.exports = {
   index,
   getFavs,

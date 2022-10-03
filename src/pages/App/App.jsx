@@ -52,26 +52,6 @@ export default function App() {
 					<Navv user={user} setUser={setUser} />
 					<ScrollToTop />
 					<Switch>
-						<Route exact path="/">
-							<Index setLoading={setLoading} user={user}/>
-							{loading ? <Loading /> : null}
-						</Route>
-						<Route exact path='/details/:id'>
-							<CoinDetailsPage setLoading={setLoading} user={user}/>
-							{loading ? <Loading /> : null}
-						</Route>
-						{/* <Route exact path='/watchlist'>
-							<WatchlistPage user={user} setLoading={setLoading}/>
-							{loading ? <Loading /> : null}
-						</Route>
-						<Route exact path='/watchlist/:id'>
-							<WatchlistDetailsPage user={user} setLoading={setLoading}/>
-							{loading ? <Loading /> : null}
-						</Route>
-						<Route exact path='/watchlist/add/:id'>
-							<WatchlistAddPage user={user} setLoading={setLoading}/>
-							{loading ? <Loading /> : null}
-						</Route> */}
 						<Route exact path='/auth'>
 							<AuthPage setUser={setUser} />
 						</Route>
